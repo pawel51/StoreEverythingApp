@@ -13,11 +13,4 @@ public class StoreEverythingAppApplication {
         SpringApplication.run(StoreEverythingAppApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner run(UserService userService){
-        return args -> {
-            userService.addUser("Pawel");
-        };
-    }
-
 }

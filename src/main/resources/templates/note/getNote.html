@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html layout:decorate="~{fragments/main_layout}" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head></head>
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-6">
+            <h3>Person Details</h3>
+            <a th:href="@{/note/{id}/edit(id=${note.getId()})}" class="btn btn-primary m-1">Edit</a>
+            <form th:action="@{/note/delete/{id}(id=${note.getId()})}"
+                  th:method="delete">
+                <button class="btn btn-danger m-1" type="submit">Delete</button>
+            </form>
+            <hr/>
+            <ul class="list-unstyled">
+                <li>ID: <b th:text="${note.getId()}"></b></li>
+                <li>Owner: <b th:text="${note.getOwner().getName()}"></b></li>
+                <li>Title: <b th:text="${note.getTitle()}"></b></li>
+                <li>Content: <b th:text="${note.getContent()}"></b></li>
+            </ul>
+        </div>
+        <div class="col-6"></div>
+    </div>
+
+    <hr/>
+</div>
+</body>
+</html>

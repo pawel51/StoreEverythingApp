@@ -1,0 +1,31 @@
+<!--<!DOCTYPE HTML>-->
+<!--<html layout:decorate="~{fragments/main_layout}" xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">-->
+<!--<head></head>-->
+<!--<body>-->
+<!--<div layout:fragment="content">-->
+<!--  <form th:object="${noteDto}"-->
+<!--        th:action="@{/note/{id}/update(id=${noteId})}"-->
+<!--        th:method="put">-->
+<!--    <div class="form-group">-->
+<!--      <label for="fieldOfStudy">Note title</label>-->
+<!--      <input id="fieldOfStudy" type="text" class="form-control" th:field="*{title}">-->
+<!--      <p th:if="${#fields.hasErrors('title')}"-->
+<!--         th:text="${#strings.listJoin(#fields.errors('title'), ', ')}" class="text-danger"></p>-->
+<!--    </div>-->
+<!--    <div class="form-group">-->
+<!--      <label for="departamentId">School class</label>-->
+<!--      <select id="departamentId" th:field="*{schoolClassId}" class="form-control">-->
+<!--        <option th:each="schoolclass : ${schoolClasses}" th:value="${schoolclass.getId()}"-->
+<!--                th:text="${schoolclass.getName()}"></option>-->
+<!--      </select>-->
+<!--      <p th:if="${#fields.hasErrors('schoolClassId')}"-->
+<!--         th:text="${#strings.listJoin(#fields.errors('schoolClassId'), ', ')}" class="text-danger"></p>-->
+<!--    </div>-->
+<!--    <div class="form-group mt-3">-->
+<!--      <button class="btn btn-primary" type="submit">Update</button>-->
+<!--    </div>-->
+<!--  </form>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

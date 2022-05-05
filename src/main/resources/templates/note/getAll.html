@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html layout:decorate="~{fragments/main_layout}" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head></head>
+<body>
+<div layout:fragment="content">
+    <h3>Note List</h3>
+    <a th:href="@{/note/add}" class="btn btn-success">Add note</a>
+    <hr/>
+    <table class="table table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Owner</th>
+            <th>Title</th>
+            <th>Content</th>
+        </tr>
+        <tr th:each="note : ${noteList}">
+            <td th:text="${note.getId()}"></td>
+            <td th:text="${note.getOwner().getName()}"></td>
+            <td th:text="${note.getTitle()}"></td>
+            <td th:text="${note.getContent()}"></td>
+            <td>
+                <a th:href="@{/note/{id}(id=${note.getId()})}" class="btn btn-sm btn-primary m-1">Details</a>
+                <a th:href="@{/note/edit/{id}(id=${note.getId()})}" class="btn btn-sm btn-primary m-1">Edit</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
