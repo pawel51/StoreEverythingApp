@@ -19,7 +19,7 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
-    private UserModel owner;
+    private User owner;
     private String title;
     private String content;
     @ManyToOne
@@ -28,7 +28,7 @@ public class Note {
     private OffsetDateTime createdAt;
     private OffsetDateTime reminder;
 
-    public Note(UserModel owner, String title, String content, Category category, OffsetDateTime reminder) {
+    public Note(User owner, String title, String content, Category category, OffsetDateTime reminder) {
         this.owner = owner;
         this.title = title;
         this.content = content;

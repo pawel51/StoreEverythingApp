@@ -1,6 +1,6 @@
 package com.javawww.storeeverythingapp.controller;
 
-import com.javawww.storeeverythingapp.model.UserModel;
+import com.javawww.storeeverythingapp.model.User;
 import com.javawww.storeeverythingapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ public class HomeController {
     private final UserService userService;
 
     @ModelAttribute("user")
-    public UserModel user() { return userService.getUser("Pawel"); }
+    public User user() { return userService.getUserByName("Pawel"); }
 
     @GetMapping
     public String getHome(){

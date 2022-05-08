@@ -34,10 +34,10 @@ public class NoteService {
     public Note update(Long id, NoteDto noteDto) {
         Note note = getNote(id);
 
-        note.setTitle(note.getTitle());
-        note.setContent(note.getContent());
-        note.setCategory(note.getCategory());
-        note.setReminder(note.getReminder());
+        note.setTitle(noteDto.getTitle());
+        note.setContent(noteDto.getContent());
+        note.setCategory(noteDto.getCategory());
+        note.setReminder(noteDto.getReminder());
 
         note = noteRepository.save(note);
         log.info("Note with id " + id + " has been updated.");
