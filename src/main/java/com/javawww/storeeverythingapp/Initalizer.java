@@ -1,8 +1,9 @@
 package com.javawww.storeeverythingapp;
 
+import com.javawww.storeeverythingapp.enums.*;
 import com.github.javafaker.Faker;
 import com.javawww.storeeverythingapp.model.Note;
-import com.javawww.storeeverythingapp.model.UserModel;
+import com.javawww.storeeverythingapp.model.User;
 import com.javawww.storeeverythingapp.repository.NoteRepository;
 import com.javawww.storeeverythingapp.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -21,8 +22,8 @@ public class Initalizer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        UserModel user1 = addUser("Anna");
-        UserModel user2 = addUser("Jan");
+        User user1 = addUser("Anna", "Jantar", "Jantex", "example123", Role.LIMITEDUSER);
+        User user2 = addUser("Jan", "Kowalski", "Kowal", "example321", Role.FULLUSER);
 
         Note note1 = addNote(user1, "Title1", "Example content1");
         Note note2 = addNote(user1, "Title2", "Example content2");
@@ -31,13 +32,13 @@ public class Initalizer implements CommandLineRunner {
 
     }
 
-    public UserModel addUser(String name){
-        UserModel user = new UserModel(name);
+    public User addUser(String name, String surname, String login, String password, Role role){
+        User user = new User(name, surname, login, password, role);
         userRepository.save(user);
         return user;
     }
 
-    public Note addNote(UserModel owner, String title, String content){
+    public Note addNote(User owner, String title, String content){
         Note note = new Note(owner, title, content, null, OffsetDateTime.now().plusHours(1));
         noteRepository.save(note);
         return note;

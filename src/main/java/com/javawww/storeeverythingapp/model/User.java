@@ -1,5 +1,6 @@
 package com.javawww.storeeverythingapp.model;
 
+import com.javawww.storeeverythingapp.enums.*;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -12,7 +13,7 @@ import javax.persistence.Id;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserModel {
+public class User {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -20,7 +21,21 @@ public class UserModel {
 
     private String name;
 
-    public UserModel (String name) {
+    private String surname;
+
+    private String login;
+
+    private String password;
+
+    private int age;
+
+    private Role role;
+
+    public User(String name, String surname, String login, String password, Role role) {
         this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.role = role;
     }
 }
