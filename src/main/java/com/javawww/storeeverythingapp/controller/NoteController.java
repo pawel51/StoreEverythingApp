@@ -5,7 +5,9 @@ import com.javawww.storeeverythingapp.service.NoteService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -31,30 +33,30 @@ public class NoteController {
 
 
 //    TODO:
-//    @GetMapping("/add")
-//    public String createNote(Model model) {
-//        if (!model.containsAttribute("note")) {
-//            model.addAttribute("note", new Note());
-//        }
-//
-//        return "note/add";
-//    }
-//
-//    @PostMapping("/add")
-//    public String addNote(@ModelAttribute("note") Note note,
-//                           BindingResult bindingResult,
-//                           RedirectAttributes redirectAttributes) {
-//        if (bindingResult.hasErrors()) {
-//            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.groupDto", bindingResult);
-//            redirectAttributes.addFlashAttribute("note", note);
-//            return "redirect:/note/add";
-//        }
-//
-//        noteService.addNote(note);
-//
-//        redirectAttributes.addFlashAttribute("success", "Record has been successfully added.");
-//        return "redirect:/note/" + note.getId();
-//    }
+    @GetMapping("/add")
+    public String createNote(Model model) {
+        if (!model.containsAttribute("note")) {
+            model.addAttribute("note", new Note());
+        }
+
+        return "note/addNote";
+    }
+
+    @PostMapping("/add")
+    public String addNote(@ModelAttribute("note") Note note,
+                           BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.groupDto", bindingResult);
+            redirectAttributes.addFlashAttribute("note", note);
+            return "redirect:/note/addNote";
+        }
+
+        noteService.addNote(note);
+
+        redirectAttributes.addFlashAttribute("success", "Record has been successfully added.");
+        return "redirect:/note/" + note.getId();
+    }
 
 //    @GetMapping("/{id}/edit")
 //    public String editNote(@PathVariable Long id, Model model) {
