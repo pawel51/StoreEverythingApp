@@ -2,7 +2,7 @@ package com.javawww.storeeverythingapp.service;
 
 import com.javawww.storeeverythingapp.dto.UserDto;
 import com.javawww.storeeverythingapp.enums.*;
-import com.javawww.storeeverythingapp.model.User;
+import com.javawww.storeeverythingapp.model.UserModel;
 import com.javawww.storeeverythingapp.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,39 +17,39 @@ public class UserService {
         this.userRepository = userRepo;
     }
 
-    public User getUser(Long id) {
+    public UserModel getUser(Long id) {
         log.info("Getting user with id = {}", id);
         return userRepository.getById(id);
     }
-    public User getUserByName(String name){
+    public UserModel getUserByName(String name){
         log.info("Getting UserModel by name = {}", name);
         return userRepository.findByName(name);
     }
 
-    public User getUserByLogin(String login) {
+    public UserModel getUserByLogin(String login) {
         log.info("Getting UserModel by login = {}", login);
-        return userRepository.findByLogin(login);
+        return userRepository.findByUsername(login);
     }
 
     public void addUser(String name, String surname, String login, String password, Role role){
         log.info("Adding user with name = {}", name);
-        userRepository.save(new User(name, surname, login, password, role));
+        userRepository.save(new UserModel(name, surname, login, password, role));
     }
 
-    public User update(Long id, UserDto userDto) {
-        User user = getUser(id);
+    public UserModel update(Long id, UserDto userDto) {
+        UserModel userModel = getUser(id);
 
-        user.setId(userDto.getId());
-        user.setName(userDto.getName());
-        user.setSurname(userDto.getSurname());
-        user.setLogin(userDto.getLogin());
-        user.setPassword(userDto.getPassword());
-        user.setAge(userDto.getAge());
-        user.setRole(userDto.getRole());
+        userModel.setId(userDto.getId());
+        userModel.setName(userDto.getName());
+        userModel.setSurname(userDto.getSurname());
+        userModel.setUsername(userDto.getUsername());
+        userModel.setPassword(userDto.getPassword());
+        userModel.setAge(userDto.getAge());
+        userModel.setRole(userDto.getRole());
 
-        user = userRepository.save(user);
+        userModel = userRepository.save(userModel);
         log.info("User with id = {} has been updated", id);
-        return user;
+        return userModel;
     }
 
     public void delete(Long id) {

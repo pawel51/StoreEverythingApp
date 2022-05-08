@@ -3,7 +3,7 @@ package com.javawww.storeeverythingapp;
 import com.javawww.storeeverythingapp.enums.*;
 import com.github.javafaker.Faker;
 import com.javawww.storeeverythingapp.model.Note;
-import com.javawww.storeeverythingapp.model.User;
+import com.javawww.storeeverythingapp.model.UserModel;
 import com.javawww.storeeverythingapp.repository.NoteRepository;
 import com.javawww.storeeverythingapp.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -22,23 +22,23 @@ public class Initalizer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        User user1 = addUser("Anna", "Jantar", "Jantex", "example123", Role.LIMITEDUSER);
-        User user2 = addUser("Jan", "Kowalski", "Kowal", "example321", Role.FULLUSER);
+        UserModel userModel1 = addUser("Anna", "Jantar", "Jantex", "example123", Role.LIMITEDUSER);
+        UserModel userModel2 = addUser("Jan", "Kowalski", "Kowal", "example321", Role.FULLUSER);
 
-        Note note1 = addNote(user1, "Title1", "Example content1");
-        Note note2 = addNote(user1, "Title2", "Example content2");
-        Note note3 = addNote(user2, "Title3", "Example content3");
-        Note note4 = addNote(user1, "Title4", "Example content4");
+        Note note1 = addNote(userModel1, "Title1", "Example content1");
+        Note note2 = addNote(userModel1, "Title2", "Example content2");
+        Note note3 = addNote(userModel2, "Title3", "Example content3");
+        Note note4 = addNote(userModel1, "Title4", "Example content4");
 
     }
 
-    public User addUser(String name, String surname, String login, String password, Role role){
-        User user = new User(name, surname, login, password, role);
-        userRepository.save(user);
-        return user;
+    public UserModel addUser(String name, String surname, String username, String password, Role role){
+        UserModel userModel = new UserModel(name, surname, username, password,  role);
+        userRepository.save(userModel);
+        return userModel;
     }
 
-    public Note addNote(User owner, String title, String content){
+    public Note addNote(UserModel owner, String title, String content){
         Note note = new Note(owner, title, content, null, OffsetDateTime.now().plusHours(1));
         noteRepository.save(note);
         return note;

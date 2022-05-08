@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class UserModel {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -23,7 +23,7 @@ public class User {
 
     private String surname;
 
-    private String login;
+    private String username;
 
     private String password;
 
@@ -31,10 +31,10 @@ public class User {
 
     private Role role;
 
-    public User(String name, String surname, String login, String password, Role role) {
+    public UserModel (String name, String surname, String username, String password, Role role) {
         this.name = name;
         this.surname = surname;
-        this.login = login;
+        this.username = username;
         this.password = password;
         this.role = role;
     }
