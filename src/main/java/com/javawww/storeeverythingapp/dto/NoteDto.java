@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @AllArgsConstructor
@@ -16,5 +17,5 @@ public class NoteDto {
     private String title;
     private String content;
     private Category category;
-    private OffsetDateTime reminder;
+    private LocalDateTime reminder;
 }

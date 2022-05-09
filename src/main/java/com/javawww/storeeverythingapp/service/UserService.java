@@ -26,9 +26,9 @@ public class UserService {
         return userRepository.findByName(name);
     }
 
-    public UserModel getUserByLogin(String login) {
-        log.info("Getting UserModel by login = {}", login);
-        return userRepository.findByUsername(login);
+    public UserModel getUserByUsername(String userName) {
+        log.info("Getting UserModel by userName = {}", userName);
+        return userRepository.findByUsername(userName);
     }
 
     public void addUser(String name, String surname, String login, String password, Role role){

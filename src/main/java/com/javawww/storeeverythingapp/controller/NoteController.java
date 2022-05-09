@@ -1,7 +1,11 @@
 package com.javawww.storeeverythingapp.controller;
 
+import com.javawww.storeeverythingapp.model.Category;
 import com.javawww.storeeverythingapp.model.Note;
+import com.javawww.storeeverythingapp.repository.UserRepository;
+import com.javawww.storeeverythingapp.service.CategoryService;
 import com.javawww.storeeverythingapp.service.NoteService;
+import com.javawww.storeeverythingapp.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,13 +13,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
 @RequestMapping("/note")
 public class NoteController {
     private final NoteService noteService;
+    private final CategoryService categoryService;
+    private final UserService userService;
 
     @GetMapping()
     public String getAll(Model model){
@@ -38,6 +46,12 @@ public class NoteController {
         if (!model.containsAttribute("note")) {
             model.addAttribute("note", new Note());
         }
+        if (!model.containsAttribute("categories")) {
+            model.addAttribute("categories", categoryService.findAll());
+        }
+        if (!model.containsAttribute("categoryString")) {
+            model.addAttribute("categoryString", "");
+        }
 
         return "note/addNote";
     }
@@ -51,7 +65,13 @@ public class NoteController {
             redirectAttributes.addFlashAttribute("note", note);
             return "redirect:/note/addNote";
         }
-
+        note.setCreatedAt(OffsetDateTime.now());
+//        Optional<Category> category = categoryService.findByName(categoryString);
+//        if (category.isPresent())
+//            note.setCategory(category.get());
+//        else
+//            return "redirect:/note/addNote";
+        note.setOwner(userService.getUserByUsername("Jantex"));
         noteService.addNote(note);
 
         redirectAttributes.addFlashAttribute("success", "Record has been successfully added.");

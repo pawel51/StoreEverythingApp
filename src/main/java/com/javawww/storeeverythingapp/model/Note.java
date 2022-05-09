@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
 @Entity
@@ -25,10 +27,13 @@ public class Note {
     @ManyToOne
     private Category category;
     @Column(name = "created_at")
-    private OffsetDateTime createdAt;
-    private OffsetDateTime reminder;
 
-    public Note(UserModel owner, String title, String content, Category category, OffsetDateTime reminder) {
+    private OffsetDateTime createdAt;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+    private LocalDateTime reminder;
+
+    public Note(UserModel owner, String title, String content, Category category, LocalDateTime reminder) {
         this.owner = owner;
         this.title = title;
         this.content = content;
