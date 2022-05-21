@@ -31,9 +31,9 @@ public class UserService {
         return userRepository.findByUsername(userName);
     }
 
-    public void addUser(String name, String surname, String login, String password, Role role){
+    public void addUser(String name, String surname, String login, String password, int age, Role role){
         log.info("Adding user with name = {}", name);
-        userRepository.save(new UserModel(name, surname, login, password, role));
+        userRepository.save(new UserModel(name, surname, login, password, age, role));
     }
 
     public UserModel update(Long id, UserDto userDto) {

@@ -26,8 +26,8 @@ public class Initalizer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        UserModel userModel1 = addUser("Anna", "Jantar", "Jantex", "example123", Role.LIMITEDUSER);
-        UserModel userModel2 = addUser("Jan", "Kowalski", "Kowal", "example321", Role.FULLUSER);
+        UserModel userModel1 = addUser("Anna", "Jantar", "Jantex", "Strong.123", 78, Role.LIMITEDUSER);
+        UserModel userModel2 = addUser("Jan", "Kowalski", "Kowal", "Strong.123", 16, Role.FULLUSER);
 
         Note note1 = addNote(userModel1, "Title1", "Example content1");
         Note note2 = addNote(userModel1, "Title2", "Example content2");
@@ -41,8 +41,8 @@ public class Initalizer implements CommandLineRunner {
 
     }
 
-    public UserModel addUser(String name, String surname, String username, String password, Role role){
-        UserModel userModel = new UserModel(name, surname, username, password,  role);
+    public UserModel addUser(String name, String surname, String username, String password, int age, Role role){
+        UserModel userModel = new UserModel(name, surname, username, password, age,  role);
         userRepository.save(userModel);
         return userModel;
     }

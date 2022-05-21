@@ -2,6 +2,7 @@ package com.javawww.storeeverythingapp.controller;
 
 import com.javawww.storeeverythingapp.model.Category;
 import com.javawww.storeeverythingapp.model.Note;
+import com.javawww.storeeverythingapp.model.UserModel;
 import com.javawww.storeeverythingapp.repository.UserRepository;
 import com.javawww.storeeverythingapp.service.CategoryService;
 import com.javawww.storeeverythingapp.service.NoteService;
@@ -13,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -57,13 +59,15 @@ public class NoteController {
     }
 
     @PostMapping("/add")
-    public String addNote(@ModelAttribute("note") Note note,
+    public String addNote(Model model,
+                           @Valid Note note,
                            BindingResult bindingResult,
                            RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.groupDto", bindingResult);
-            redirectAttributes.addFlashAttribute("note", note);
-            return "redirect:/note/addNote";
+            if (!model.containsAttribute("categories")) {
+                model.addAttribute("categories", categoryService.findAll());
+            }
+            return "/note/addNote";
         }
         note.setCreatedAt(OffsetDateTime.now());
 //        Optional<Category> category = categoryService.findByName(categoryString);
@@ -71,7 +75,8 @@ public class NoteController {
 //            note.setCategory(category.get());
 //        else
 //            return "redirect:/note/addNote";
-        note.setOwner(userService.getUserByUsername("Jantex"));
+        UserModel u = userService.getUserByUsername("Jantex");
+        note.setOwner(u);
         noteService.addNote(note);
 
         redirectAttributes.addFlashAttribute("success", "Record has been successfully added.");

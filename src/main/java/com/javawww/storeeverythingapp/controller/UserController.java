@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 @RequestMapping("/user")
 public class UserController {
+
     private final UserService userService;
 
     public String getUser(Model model, @PathVariable Long id) {
