@@ -12,16 +12,13 @@ import java.util.Optional;
 
 @Slf4j
 @Service
-@AllArgsConstructor
-public class CategoryService {
-    private final CategoryRepository categoryRepository;
+public class CategoryService extends GenericManagementService<Category, CategoryRepository>{
 
-    public List<Category> findAll(){
-        log.info("Getting all categories");
-        return categoryRepository.findAll();
+    public CategoryService (CategoryRepository categoryRepository) {
+        super(categoryRepository);
     }
 
     public Optional<Category> findByName(String name){
-        return categoryRepository.findByName(name);
+        return repository.findByName(name);
     }
 }

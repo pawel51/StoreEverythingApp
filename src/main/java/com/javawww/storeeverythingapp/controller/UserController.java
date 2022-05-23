@@ -16,7 +16,7 @@ public class UserController {
     private final UserService userService;
 
     public String getUser(Model model, @PathVariable Long id) {
-        UserModel userModel = userService.getUser(id);
+        UserModel userModel = userService.getById(id);
         model.addAttribute("user", userModel);
         return "user/getUser";
     }

@@ -1,5 +1,6 @@
 package com.javawww.storeeverythingapp.controller;
 
+import com.javawww.storeeverythingapp.dto.NoteDto;
 import com.javawww.storeeverythingapp.model.Category;
 import com.javawww.storeeverythingapp.model.Note;
 import com.javawww.storeeverythingapp.model.UserModel;
@@ -36,7 +37,7 @@ public class NoteController {
 
     @GetMapping("/{id}")
     public String getNote(Model model, @PathVariable Long id) {
-        Note note = noteService.getNote(id);
+        Note note = noteService.getById(id);
         model.addAttribute("note", note);
         return "note/getNote";
     }
@@ -70,55 +71,51 @@ public class NoteController {
             return "/note/addNote";
         }
         note.setCreatedAt(OffsetDateTime.now());
-//        Optional<Category> category = categoryService.findByName(categoryString);
-//        if (category.isPresent())
-//            note.setCategory(category.get());
-//        else
-//            return "redirect:/note/addNote";
+
         UserModel u = userService.getUserByUsername("Jantex");
         note.setOwner(u);
-        noteService.addNote(note);
+        noteService.add(note);
 
         redirectAttributes.addFlashAttribute("success", "Record has been successfully added.");
         return "redirect:/note/" + note.getId();
     }
 
-//    @GetMapping("/{id}/edit")
-//    public String editNote(@PathVariable Long id, Model model) {
-//
-//        Note note = noteService.getNote(id);
-//        NoteDto noteDto = new NoteDto(note.getTitle(), note.getContent(), note.getCategory(), note.getReminder());
-//
-//        if (!model.containsAttribute("noteDto")) {
-//            model.addAttribute("noteDto", new NoteDto());
-//        }
-//
-//        model.addAttribute("noteId", id);
-//        model.addAttribute("noteDto", noteDto);
-//        return "note/edit";
-//    }
-//
-//    @PutMapping("/{id}/update")
-//    public String updateNote(@PathVariable Long id,
-//                             @ModelAttribute("noteDto") NoteDto noteDto,
-//                              BindingResult bindingResult,
-//                              RedirectAttributes redirectAttributes) {
-//        if (bindingResult.hasErrors()) {
-//            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.groupDto", bindingResult);
-//            redirectAttributes.addFlashAttribute("noteDto", noteDto);
-//            return "redirect:/note/" + id;
-//        }
-//
-//        Note note = noteService.update(id, noteDto);
-//
-//        redirectAttributes.addFlashAttribute("success", "Record has been successfully updated.");
-//        return "redirect:/note/" + note.getId();
-//    }
-//
-//    @DeleteMapping("/delete/{id}")
-//    public String deleteNote(@PathVariable Long id) {
-//        noteService.delete(id);
-//
-//        return "redirect:/note";
-//    }
+    @GetMapping("/{id}/edit")
+    public String editNote(@PathVariable Long id, Model model) {
+
+        Note note = noteService.getById(id);
+        NoteDto noteDto = new NoteDto(note.getTitle(), note.getContent(), note.getCategory(), note.getReminder());
+
+        if (!model.containsAttribute("noteDto")) {
+            model.addAttribute("noteDto", new NoteDto());
+        }
+
+        model.addAttribute("noteId", id);
+        model.addAttribute("noteDto", noteDto);
+        return "note/edit";
+    }
+
+    @PutMapping("/{id}/update")
+    public String updateNote(@PathVariable Long id,
+                             @ModelAttribute("noteDto") NoteDto noteDto,
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.groupDto", bindingResult);
+            redirectAttributes.addFlashAttribute("noteDto", noteDto);
+            return "redirect:/note/" + id;
+        }
+
+        Note note = noteService.update(id, noteDto);
+
+        redirectAttributes.addFlashAttribute("success", "Record has been successfully updated.");
+        return "redirect:/note/" + note.getId();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteNote(@PathVariable Long id) {
+        noteService.delete(id);
+
+        return "redirect:/note";
+    }
 }

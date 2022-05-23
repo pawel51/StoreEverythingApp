@@ -24,7 +24,7 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
+//    @NotNull
     @ManyToOne
     private UserModel owner;
 
