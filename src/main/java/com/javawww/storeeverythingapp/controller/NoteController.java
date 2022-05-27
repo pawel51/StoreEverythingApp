@@ -17,8 +17,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.OffsetDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -29,9 +31,21 @@ public class NoteController {
     private final UserService userService;
 
     @GetMapping()
-    public String getAll(Model model){
+    public String getAll(Model model, @RequestParam(name = "titleSort", required = false) String titleSort){
         List<Note> noteList = noteService.findAll();
-        model.addAttribute("noteList", noteList);
+        if(titleSort == null){
+            model.addAttribute("noteList", noteList);
+        } else {
+            switch (titleSort.toLowerCase()){
+                case "ascending": model.addAttribute("noteList", noteList.stream().sorted(Comparator.comparing(Note::getTitle)).collect(Collectors.toList()));
+                    break;
+                case "descending": model.addAttribute("noteList", noteList.stream().sorted(Comparator.comparing(Note::getTitle).reversed()).collect(Collectors.toList()));
+                    break;
+                default: model.addAttribute("noteList", noteList);
+                    break;
+            }
+
+        }
         return "note/getAll";
     }
 
