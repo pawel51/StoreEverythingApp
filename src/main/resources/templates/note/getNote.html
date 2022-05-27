@@ -22,8 +22,7 @@
     <div class="row">
         <div class="col-6">
             <h3>Note details</h3>
-            <a th:href="@{/note}" class="btn btn-primary m-1">See all</a>
-            <a th:href="@{/note/edit/{id}(id=${note.getId()})}" class="btn btn-primary m-1">Edit</a>
+            <a th:href="@{/note/edit/{id}(id=${note.getId()})}" class="btn btn-secondary m-1">Edit</a>
             <div>
                 <form th:action="@{/note/{id}(id=${note.getId()})}" th:method="delete">
                 <button class="btn btn-danger m-1" type="submit">Delete</button>

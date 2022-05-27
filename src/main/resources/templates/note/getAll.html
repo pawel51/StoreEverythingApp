@@ -36,8 +36,8 @@
             <td th:text="${note.getTitle()}"></td>
             <td th:text="${note.getContent()}"></td>
             <td>
-                <a th:href="@{/note/{id}(id=${note.getId()})}" class="btn btn-sm btn-primary m-1">Details</a>
-                <a th:href="@{/note/edit/{id}(id=${note.getId()})}" class="btn btn-sm btn-primary m-1">Edit</a>
+                <a th:href="@{/note/{id}(id=${note.getId()})}" class="btn btn-primary m-1">Details</a>
+                <a th:href="@{/note/edit/{id}(id=${note.getId()})}" class="btn btn-secondary m-1">Edit</a>
             </td>
         </tr>
     </table>
