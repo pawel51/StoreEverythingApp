@@ -15,7 +15,9 @@
     <div class="container">
         <a class="navbar-brand" th:href="@{/}">Home</a>
         <a class="navbar-brand" th:href="@{/note}">Note</a>
+        <a class="navbar-brand" th:href="@{/category}">Category</a>
         <a class="navbar-brand" th:href="@{/note}">Users</a>
+        <a class="navbar-brand" th:href="@{/note}">Log out</a>
     </div>
 </nav>
 <div layout:fragment="content">
@@ -34,6 +36,8 @@
                 <li>Owner: <b th:text="${note.getOwner().getName()}"></b></li>
                 <li>Title: <b th:text="${note.getTitle()}"></b></li>
                 <li>Content: <b th:text="${note.getContent()}"></b></li>
+                <li>Category: <b th:text="${note.getCategory()?.getName()}"></b></li>
+                <li>Created at: <b th:text="${note.getCreatedAt().getDayOfMonth()}+'.'+${note.getCreatedAt().getMonthValue()}+'.'+${note.getCreatedAt().getYear()}+' '+${note.getCreatedAt().getHour()}+':'+${note.getCreatedAt().getMinute()}"></b></li>
                 <li>Reminder: <b th:text="${note.getReminder().getDayOfMonth()}+'.'+${note.getReminder().getMonthValue()}+'.'+${note.getReminder().getYear()}+' '+${note.getReminder().getHour()}+':'+${note.getReminder().getMinute()}"></b></li>
 
             </ul>

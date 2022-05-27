@@ -34,10 +34,10 @@ public class Initalizer implements CommandLineRunner {
         Category cat3 = addCategory("Ogłoszenia");
         Category cat4 = addCategory("Notatki");
 
-        Note note1 = addNote(userModel1, "Title1", cat1, "Example content1");
-        Note note2 = addNote(userModel1, "Title2", cat2, "Example content2");
-        Note note3 = addNote(userModel2, "Title3", cat1, "Example content3");
-        Note note4 = addNote(userModel1, "Title4", null,"Example content4");
+        Note note1 = addNote(userModel1, "ATitle1", cat1, OffsetDateTime.now(), "Example content1");
+        Note note2 = addNote(userModel1, "CTitle2", cat2, OffsetDateTime.now(), "Example content2");
+        Note note3 = addNote(userModel2, "BTitle3", cat1, OffsetDateTime.now().minusMinutes(3), "Example content3");
+        Note note4 = addNote(userModel1, "DTitle4", null, OffsetDateTime.now().minusMinutes(3),"Example content4");
 
     }
 
@@ -52,8 +52,8 @@ public class Initalizer implements CommandLineRunner {
     }
 
 
-    public Note addNote(UserModel owner, String title, Category category, String content){
-        Note note = new Note(owner, title, content, category, LocalDateTime.now().plusHours(1));
+    public Note addNote(UserModel owner, String title, Category category, OffsetDateTime createdAt, String content){
+        Note note = new Note(owner, title, content, category, createdAt, LocalDateTime.now().plusHours(1));
         noteRepository.save(note);
         return note;
     }

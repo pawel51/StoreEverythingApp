@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.OffsetDateTime;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -31,21 +32,41 @@ public class NoteController {
     private final UserService userService;
 
     @GetMapping()
-    public String getAll(Model model, @RequestParam(name = "titleSort", required = false) String titleSort){
+    public String getAll(Model model,
+                         @RequestParam(name = "titleSort", required = false) String titleSort,
+                         @RequestParam(name = "dateSort", required = false) String dateSort,
+                         @RequestParam(name = "categorySort", required = false) String categorySort){
         List<Note> noteList = noteService.findAll();
-        if(titleSort == null){
-            model.addAttribute("noteList", noteList);
-        } else {
+        if(titleSort != null){
             switch (titleSort.toLowerCase()){
-                case "ascending": model.addAttribute("noteList", noteList.stream().sorted(Comparator.comparing(Note::getTitle)).collect(Collectors.toList()));
+                case "ascending": noteList = noteList.stream().sorted(Comparator.comparing(Note::getTitle)).collect(Collectors.toList());
                     break;
-                case "descending": model.addAttribute("noteList", noteList.stream().sorted(Comparator.comparing(Note::getTitle).reversed()).collect(Collectors.toList()));
-                    break;
-                default: model.addAttribute("noteList", noteList);
+                case "descending": noteList = noteList.stream().sorted(Comparator.comparing(Note::getTitle).reversed()).collect(Collectors.toList());
                     break;
             }
-
         }
+
+        if(dateSort != null){{
+            switch (dateSort.toLowerCase()){
+                case "ascending": noteList = noteList.stream().sorted(Comparator.comparing(Note::getCreatedAt)).collect(Collectors.toList());
+                    break;
+                case "descending": noteList = noteList.stream().sorted(Comparator.comparing(Note::getCreatedAt).reversed()).collect(Collectors.toList());
+                    break;
+            }
+        }}
+
+//        if(categorySort != null){{
+//            switch (categorySort.toLowerCase()){
+//                case "ascending": noteList = noteList.stream().sorted(Comparator.nullsLast(Comparator.comparing(note -> note.getCategory().getName()))).collect(Collectors.toList());
+//                    break;
+//                case "descending": noteList = noteList.stream().sorted(Comparator.nullsLast(Comparator.comparing(note -> note.getCategory().getName()))).collect(Collectors.toList());
+//                    Collections.reverse(noteList);
+//                    break;
+//            }
+//        }}
+
+        model.addAttribute("noteList", noteList);
+
         return "note/getAll";
     }
 
@@ -56,8 +77,6 @@ public class NoteController {
         return "note/getNote";
     }
 
-
-//    TODO:
     @GetMapping("/add")
     public String createNote(Model model) {
         if (!model.containsAttribute("note")) {
@@ -84,8 +103,9 @@ public class NoteController {
             }
             return "/note/addNote";
         }
+        //TODO:
         note.setCreatedAt(OffsetDateTime.now());
-
+        //TODO:
         UserModel u = userService.getUserByUsername("Jantex");
         note.setOwner(u);
         noteService.add(note);

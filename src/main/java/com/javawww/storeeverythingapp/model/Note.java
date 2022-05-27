@@ -55,4 +55,13 @@ public class Note {
         this.createdAt = OffsetDateTime.now();
         this.reminder = reminder;
     }
+
+    public Note(UserModel owner, String title, String content, Category category, OffsetDateTime createdAt, LocalDateTime reminder) {
+        this.owner = owner;
+        this.title = title;
+        this.content = content;
+        this.category = category;
+        this.createdAt = createdAt;
+        this.reminder = reminder;
+    }
 }
