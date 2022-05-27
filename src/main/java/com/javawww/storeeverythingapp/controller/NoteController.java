@@ -80,29 +80,32 @@ public class NoteController {
         return "redirect:/note/" + note.getId();
     }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/edit/{id}")
     public String editNote(@PathVariable Long id, Model model) {
 
         Note note = noteService.getById(id);
         NoteDto noteDto = new NoteDto(note.getTitle(), note.getContent(), note.getCategory(), note.getReminder());
 
-        if (!model.containsAttribute("noteDto")) {
-            model.addAttribute("noteDto", new NoteDto());
+        if (!model.containsAttribute("note")) {
+            model.addAttribute("note", new NoteDto());
+        }
+        if (!model.containsAttribute("categories")) {
+            model.addAttribute("categories", categoryService.findAll());
         }
 
         model.addAttribute("noteId", id);
-        model.addAttribute("noteDto", noteDto);
+        model.addAttribute("note", noteDto);
         return "note/edit";
     }
 
     @PutMapping("/{id}/update")
     public String updateNote(@PathVariable Long id,
-                             @ModelAttribute("noteDto") NoteDto noteDto,
+                             @Valid @ModelAttribute("note") NoteDto noteDto,
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.groupDto", bindingResult);
-            redirectAttributes.addFlashAttribute("noteDto", noteDto);
+            redirectAttributes.addFlashAttribute("note", noteDto);
             return "redirect:/note/" + id;
         }
 
@@ -112,10 +115,9 @@ public class NoteController {
         return "redirect:/note/" + note.getId();
     }
 
-    @DeleteMapping("/delete/{id}")
-    public String deleteNote(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public String deleteNote(@PathVariable("id") Long id) {
         noteService.delete(id);
-
         return "redirect:/note";
     }
 }
