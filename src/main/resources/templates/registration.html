@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Rejestracja</title>
+  <link href="../static/css/boostrap/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+  <link rel="stylesheet" th:href="@{/css/pages/registration.css}"/>
+
+</head>
+<body>
+<div class="register-container">
+
+  <div class="register-left-side" th:style="'background: url(images/loginBackground.jpg) no-repeat center center fixed;'">
+    <div class="register-header">
+      <h1>DODAWAJ NOTATKI <br> I DZIEL SIĘ Z INNYMI</h1>
+      <p>Lorem ipsum dolor sit amet, conseteur sadipscing elitr, sed diam nonumy eirmad tempor invidunt ul labore et dolore magna erat</p>
+      <button class="btn-more">WIĘCEJ</button>
+    </div>
+  </div>
+
+  <div class="register-right-side">
+
+    <form class="register-form" th:action="@{/register}">
+      <h2>Rejestracja</h2>
+
+      <label for="name">Imię</label>
+      <input type="text" id="name" name="name" placeholder="Podaj imię...">
+
+      <label for="surname">Nazwisko</label>
+      <input type="text" id="surname" name="surname" placeholder="Podaj nazwisko...">
+
+      <label for="age">Wiek</label>
+      <input type="text" id="age" name="age" placeholder="Podaj wiek...">
+
+      <label for="username">Nazwa Użytkownika:</label>
+      <input type="text" id="username" name="username" placeholder="Podaj nazwę...">
+
+      <label for="password">Hasło:</label>
+      <input type="text" id="password" name="password" placeholder="Podaj hasło...">
+
+      <p class="register-alert"></p>
+      <div class="btn-register">Zarejestruj się</div>
+      <div class="login-register">
+        <p>Masz już konto? <span> <a th:href="@{/login}">Zaloguj się</a></span> </p>
+      </div>
+    </form>
+  </div>
+</div>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+<!--<script src="../static/js/bootstrap.js" th:href="@{/js/bootstrap.js}"></script>-->
+<script th:src="@{/js/registration.js}"></script>
+</body>
+</html>

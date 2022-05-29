@@ -1,0 +1,115 @@
+
+:root{
+    --dark-blue: #3166AB;
+    --header-p: #E2E0E0;
+    --btn-more-background: #97AFE3;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.register-container{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+/* left side */
+
+
+.register-left-side{
+    position: relative;
+    width: 60%;
+    z-index: 0;
+}
+
+
+.register-left-side::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(39, 82, 128, 0.49);
+    z-index: 1;
+}
+
+.register-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    z-index: 100;
+}
+.register-header h1, .register-header p{
+    letter-spacing: 2px;
+}
+.register-header h1{
+    color: white;
+}
+.register-header p{
+    margin: 20px 0;
+    font-size: 12px;
+    color: var(--header-p);
+
+
+}
+.btn-more{
+    padding: 10px;
+    width: 70px;
+    border: none;
+    color: white;
+    background: var(--btn-more-background);
+}
+
+/* right side */
+.register-right-side{
+    position: relative;
+    width: 40%;
+}
+.register-form{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    transform: translate(-50%, -50%);
+    width: 60%;
+}
+
+.register-form label, h2,.login-register p span{
+    color: var(--dark-blue);
+}
+
+.register-form h2{
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.register-form input{
+    margin: 15px 0;
+    padding: 10px;
+}
+
+.btn-register{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 15px;
+    background-color: var(--dark-blue);
+    color: white;
+}
+
+.login-register p{
+    text-align: center;
+    color: #89AAD1;
+    font-size: 12px;
+}
+
