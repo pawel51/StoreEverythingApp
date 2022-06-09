@@ -9,18 +9,17 @@ import com.javawww.storeeverythingapp.service.CategoryService;
 import com.javawww.storeeverythingapp.service.NoteService;
 import com.javawww.storeeverythingapp.service.UserService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.OffsetDateTime;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -30,6 +29,13 @@ public class NoteController {
     private final NoteService noteService;
     private final CategoryService categoryService;
     private final UserService userService;
+
+    private final ModelMapper modelMapper;
+
+//    @ModelAttribute("note")
+//    public NoteDto note() {
+//        return new NoteDto();
+//    }
 
     @GetMapping()
     public String getAll(Model model,
@@ -117,30 +123,33 @@ public class NoteController {
     @GetMapping("/edit/{id}")
     public String editNote(@PathVariable Long id, Model model) {
 
-        Note note = noteService.getById(id);
-        NoteDto noteDto = new NoteDto(note.getTitle(), note.getContent(), note.getCategory(), note.getReminder());
 
         if (!model.containsAttribute("note")) {
-            model.addAttribute("note", new NoteDto());
+            Note note = noteService.getById(id);
+            NoteDto noteDto = modelMapper.map(note, NoteDto.class);
+            model.addAttribute("note", noteDto);
         }
         if (!model.containsAttribute("categories")) {
             model.addAttribute("categories", categoryService.findAll());
         }
-
-        model.addAttribute("noteId", id);
-        model.addAttribute("note", noteDto);
+        if (!model.containsAttribute("noteId")) {
+            model.addAttribute("noteId", id);
+        }
         return "note/edit";
     }
 
+
+
     @PutMapping("/{id}/update")
     public String updateNote(@PathVariable Long id,
-                             @Valid @ModelAttribute("note") NoteDto noteDto,
+                             @Valid @ModelAttribute("note") final NoteDto noteDto,
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.groupDto", bindingResult);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.note", bindingResult);
+            redirectAttributes.addFlashAttribute("noteId", id);
             redirectAttributes.addFlashAttribute("note", noteDto);
-            return "redirect:/note/" + id;
+            return "redirect:/note/edit/" + id;
         }
 
         Note note = noteService.update(id, noteDto);

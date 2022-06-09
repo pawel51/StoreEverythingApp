@@ -18,22 +18,6 @@ public class NoteService extends GenericManagementService<Note, NoteRepository>{
     }
 
 
-//    public List<Note> findAll(){
-//        log.info("Getting all notes");
-//        return noteRepository.findAll();
-//    }
-//
-//    public Note getNote(Long id){
-//        log.info("Getting note with id = " + id);
-//        return noteRepository.getById(id);
-//    }
-//
-//    public Note addNote(Note note){
-//        noteRepository.save(note);
-//        log.info("Added note with id = "+note.getId());
-//        return note;
-//    }
-
     public Note update(Long id, NoteDto noteDto) {
         Note note = getById(id);
 
@@ -47,8 +31,5 @@ public class NoteService extends GenericManagementService<Note, NoteRepository>{
         return note;
     }
 
-//    public void delete(Long id) {
-//        noteRepository.deleteById(id);
-//        log.info("Group with id " + id + " has been removed.");
-//    }
+
 }

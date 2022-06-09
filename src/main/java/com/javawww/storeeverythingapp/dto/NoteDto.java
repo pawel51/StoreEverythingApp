@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Future;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 
@@ -17,7 +18,9 @@ import java.time.OffsetDateTime;
 @Setter
 @Getter
 public class NoteDto {
+    @Size(min=3, max=20, message = "{err.string.noteTitle}")
     private String title;
+    @Size(min=3, max=500, message = "{err.string.noteContent}")
     private String content;
     private Category category;
     @Future(message = "{err.string.reminder}")
