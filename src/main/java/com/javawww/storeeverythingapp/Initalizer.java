@@ -10,6 +10,7 @@ import com.javawww.storeeverythingapp.repository.NoteRepository;
 import com.javawww.storeeverythingapp.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -23,11 +24,12 @@ public class Initalizer implements CommandLineRunner {
     private final UserRepository userRepository;
     private final NoteRepository noteRepository;
     private final CategoryRepository categoryRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
-        UserModel userModel1 = addUser("Anna", "Jantar", "Jantex", "Strong.123", 78, Role.LIMITEDUSER);
-        UserModel userModel2 = addUser("Jan", "Kowalski", "Kowal", "Strong.123", 16, Role.FULLUSER);
+        UserModel userModel1 = addUser("Anna", "Jantar", "Jantex", passwordEncoder.encode("Strong.123"), 78, Role.LIMITEDUSER);
+        UserModel userModel2 = addUser("Jan", "Kowalski", "Kowal", passwordEncoder.encode("Strong.123"), 16, Role.FULLUSER);
 
         Category cat1 = addCategory("Do zrobienia");
         Category cat2 = addCategory("Wizyty");

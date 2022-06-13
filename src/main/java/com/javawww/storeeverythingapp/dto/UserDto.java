@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -16,6 +19,7 @@ public class UserDto {
     private String surname;
     private String username;
     private String password;
+    @Min(1) @Max(99)
     private int age;
     private Role role;
 }

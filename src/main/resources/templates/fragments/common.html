@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
     <nav th:fragment="navigationBar" class="navbar navbar-dark bg-dark">
         <div class="container">
@@ -6,7 +7,8 @@
             <a class="navbar-brand" th:href="@{/note}">Note</a>
             <a class="navbar-brand" th:href="@{/category}">Category</a>
             <a class="navbar-brand" th:href="@{/users}">Users</a>
-            <a class="navbar-brand" th:href="@{/login}">Log in</a>
+            <a sec:authorize="!isAuthenticated()" class="navbar-brand" th:href="@{/login}">Log in</a>
+            <a sec:authorize="isAuthenticated()" class="navbar-brand" th:href="@{/login?logout=1}">Log out</a>
         </div>
     </nav>
 

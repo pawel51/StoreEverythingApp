@@ -39,7 +39,7 @@ public class UserModel {
      */
 
     @NotNull
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$%^+.=<|>]).{8,20}$" , message = "{err.string.password}")
+//    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$%^+.=<|>]).{8,20}$" , message = "{err.string.password}")
     private String password;
 
     @Min(1) @Max(99)

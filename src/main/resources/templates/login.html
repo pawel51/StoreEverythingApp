@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>Logowanie</title>
@@ -20,14 +22,14 @@
 
         <div class="login-right-side">
 
-            <form class="login-form" th:action="@{/login}">
+            <form class="login-form" th:action="@{/login}" method="post">
                 <h2>Logowanie</h2>
                 <label for="username">Nazwa Użytkownika:</label>
                 <input type="text" id="username" name="username" placeholder="Podaj nazwę...">
                 <label for="password">Hasło:</label>
-                <input type="text" id="password" name="password" placeholder="Podaj hasło...">
+                <input type="password" id="password" name="password" placeholder="Podaj hasło...">
                 <button class="btn-login">Zaloguj się</button>
-                <div class="login-register">
+                <div  class="login-register">
                     <p>Nie masz jeszcze konta? <span> <a th:href="@{/registration}">Zarejestruj się</a></span> </p>
                 </div>
             </form>

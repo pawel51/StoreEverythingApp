@@ -140,7 +140,7 @@ public class NoteController {
 
 
 
-    @PutMapping("/{id}/update")
+    @PostMapping("/{id}/update")
     public String updateNote(@PathVariable Long id,
                              @Valid @ModelAttribute("note") final NoteDto noteDto,
                               BindingResult bindingResult,
