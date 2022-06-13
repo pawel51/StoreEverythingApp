@@ -10,6 +10,8 @@ import com.javawww.storeeverythingapp.service.NoteService;
 import com.javawww.storeeverythingapp.service.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -74,6 +76,14 @@ public class NoteController {
         model.addAttribute("noteList", noteList);
 
         return "note/getAll";
+    }
+
+    @GetMapping("/mine")
+    public String getNoteForSpecificUser(Model model) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Note> noteList = noteService.findPersonNotes(userDetails.getUsername());
+        model.addAttribute("noteList", noteList);
+        return "note/getUserNotes";
     }
 
     @GetMapping("/{id}")

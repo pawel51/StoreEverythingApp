@@ -6,6 +6,9 @@ import com.javawww.storeeverythingapp.repository.NoteRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Service
 public class NoteService extends GenericManagementService<Note, NoteRepository>{
@@ -14,6 +17,10 @@ public class NoteService extends GenericManagementService<Note, NoteRepository>{
         super(repository);
     }
 
+    public List<Note> findPersonNotes(String username){
+        return findAll().stream()
+                .filter(note -> note.getOwner().getUsername().equals(username)).collect(Collectors.toList());
+    }
 
     public Note update(Long id, NoteDto noteDto) {
         Note note = getById(id);

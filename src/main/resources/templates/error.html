@@ -11,15 +11,7 @@
   <link rel="stylesheet" th:href="@{/css/site.css}"/>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand" th:href="@{/}">Home</a>
-    <a class="navbar-brand" th:href="@{/note}">Note</a>
-    <a class="navbar-brand" th:href="@{/category}">Category</a>
-    <a class="navbar-brand" th:href="@{/users}">Users</a>
-    <a class="navbar-brand" th:href="@{/note}">Log out</a>
-  </div>
-</nav>
+<div th:replace="fragments/common :: navigationBar"></div>
 
 <h2>Oops...</h2>
 <h3>Sorry, something went wrong.</h3>
