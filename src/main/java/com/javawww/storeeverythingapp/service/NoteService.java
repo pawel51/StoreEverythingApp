@@ -3,11 +3,8 @@ package com.javawww.storeeverythingapp.service;
 import com.javawww.storeeverythingapp.dto.NoteDto;
 import com.javawww.storeeverythingapp.model.Note;
 import com.javawww.storeeverythingapp.repository.NoteRepository;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Slf4j
 @Service
