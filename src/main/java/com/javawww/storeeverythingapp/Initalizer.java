@@ -27,7 +27,7 @@ public class Initalizer implements CommandLineRunner {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         UserModel userModel1 = addUser("Anna", "Jantar", "Jantex", passwordEncoder.encode("Strong.123"), 78, Role.LIMITEDUSER);
         UserModel userModel2 = addUser("Jan", "Kowalski", "Kowal", passwordEncoder.encode("Strong.123"), 16, Role.FULLUSER);
 
