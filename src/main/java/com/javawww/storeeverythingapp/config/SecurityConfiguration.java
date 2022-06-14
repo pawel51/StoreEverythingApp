@@ -20,7 +20,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
-    public SecurityConfiguration (UserService userService, PasswordEncoder passwordEncoder) {
+    public SecurityConfiguration(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -37,27 +37,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure (HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .mvcMatchers("/users").hasAuthority("ADMIN")
+                .mvcMatchers("/note/add").hasAnyAuthority("ADMIN", "FULLUSER")
                 .antMatchers("/resources/**",
-                        "/css/**", "/images/**", "/js/**" ,
+                        "/css/**", "/images/**", "/js/**",
                         "/webjars/**",
                         "/assets/**",
                         "/registration**").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
+                .anyRequest().authenticated()
+                .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .permitAll()
-                    .and()
+                .loginPage("/login")
+                .permitAll()
+                .and()
                 .logout()
                 .logoutSuccessUrl("/index")
                 .permitAll();
 
     }
-
-
 
 
 }

@@ -14,8 +14,10 @@
 <div th:replace="fragments/common :: navigationBar"></div>
 <div layout:fragment="content">
     <h3>Note List</h3>
-    <a th:href="@{/note/add}" class="btn btn-success">Add note</a><hr/>
-    <a th:href="@{/note/mine}" class="btn btn-success">All my notes</a><hr/>
+    <a class="navbar-brand" sec:authorize="hasAnyAuthority('ADMIN', 'FULLUSER')">
+        <a th:href="@{/note/add}" class="btn btn-success">Add note</a><hr/>
+        <a th:href="@{/note/mine}" class="btn btn-success">All my notes</a><hr/>
+    </a>
     <table class="table table-striped">
         <tr>
             <th>ID</th>

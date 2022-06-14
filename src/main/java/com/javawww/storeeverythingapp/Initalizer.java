@@ -30,6 +30,7 @@ public class Initalizer implements CommandLineRunner {
     public void run(String... args) {
         UserModel userModel1 = addUser("Anna", "Jantar", "Jantex", passwordEncoder.encode("Strong.123"), 78, Role.LIMITEDUSER);
         UserModel userModel2 = addUser("Jan", "Kowalski", "Kowal", passwordEncoder.encode("Strong.123"), 16, Role.FULLUSER);
+        UserModel userModel3 = addUser("admin", "admin", "admin", passwordEncoder.encode("Strong.admin"), 16, Role.ADMIN);
 
         Category cat1 = addCategory("Do zrobienia");
         Category cat2 = addCategory("Wizyty");
