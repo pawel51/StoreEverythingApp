@@ -1,7 +1,6 @@
 package com.javawww.storeeverythingapp.controller;
 
 import com.javawww.storeeverythingapp.model.Category;
-import com.javawww.storeeverythingapp.model.Note;
 import com.javawww.storeeverythingapp.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
