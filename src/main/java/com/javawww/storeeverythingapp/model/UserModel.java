@@ -51,12 +51,13 @@ public class UserModel {
     @NotNull
     private String email;
 
-    public UserModel (String name, String surname, String username, String password, int age, Role role) {
+    public UserModel (String name, String surname, String username, String password, int age, Role role, String email) {
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.password = password;
         this.age = age;
         this.role = role;
+        this.email = email;
     }
 }
