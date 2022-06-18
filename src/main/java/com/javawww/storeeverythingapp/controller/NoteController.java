@@ -63,15 +63,18 @@ public class NoteController {
             }
         }}
 
-//        if(categorySort != null){{
-//            switch (categorySort.toLowerCase()){
-//                case "ascending": noteList = noteList.stream().sorted(Comparator.nullsLast(Comparator.comparing(note -> note.getCategory().getName()))).collect(Collectors.toList());
-//                    break;
-//                case "descending": noteList = noteList.stream().sorted(Comparator.nullsLast(Comparator.comparing(note -> note.getCategory().getName()))).collect(Collectors.toList());
-//                    Collections.reverse(noteList);
-//                    break;
-//            }
-//        }}
+        if(categorySort != null){{
+            Map<String, Long> amountMap = noteService.getNotesAmountByCategories();
+            switch (categorySort.toLowerCase()){
+                case "ascending":
+                    noteList = noteList.stream().filter(note -> note.getCategory()!=null).sorted(Comparator.comparing(note -> amountMap.get(note.getCategory().getName()))).collect(Collectors.toList());
+                    Collections.reverse(noteList);
+                    break;
+                case "descending":
+                    noteList = noteList.stream().filter(note -> note.getCategory()!=null).sorted(Comparator.comparing(note -> amountMap.get(note.getCategory().getName()))).collect(Collectors.toList());
+                    break;
+            }
+        }}
 
         model.addAttribute("noteList", noteList);
 

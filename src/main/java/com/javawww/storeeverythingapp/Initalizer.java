@@ -40,7 +40,7 @@ public class Initalizer implements CommandLineRunner {
         Note note1 = addNote(userModel1, "ATitle1", cat1, OffsetDateTime.now(), "Example content1");
         Note note2 = addNote(userModel1, "CTitle2", cat2, OffsetDateTime.now(), "Example content2");
         Note note3 = addNote(userModel2, "BTitle3", cat1, OffsetDateTime.now().minusMinutes(3), "Example content3");
-        Note note4 = addNote(userModel1, "DTitle4", null, OffsetDateTime.now().minusMinutes(3),"Example content4");
+        Note note4 = addNote(userModel1, "DTitle4", cat3, OffsetDateTime.now().minusMinutes(3),"Example content4");
 
     }
 

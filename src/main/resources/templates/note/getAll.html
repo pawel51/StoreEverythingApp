@@ -40,20 +40,20 @@
                         Sort
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" th:href="@{/note(dateSort='ascending')}">Ascending</a></li>
-                        <li><a class="dropdown-item" th:href="@{/note(dateSort='descending')}">Descending</a></li>
+                        <li><a class="dropdown-item" th:href="@{/note(dateSort='ascending')}">From the oldest</a></li>
+                        <li><a class="dropdown-item" th:href="@{/note(dateSort='descending')}">From the newest</a></li>
                     </ul>
                 </div></th>
             <th>Category
-<!--                <div class="dropdown">-->
-<!--                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">-->
-<!--                    Sort-->
-<!--                </button>-->
-<!--                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">-->
-<!--                    <li><a class="dropdown-item" th:href="@{/note(categorySort='ascending')}">Ascending</a></li>-->
-<!--                    <li><a class="dropdown-item" th:href="@{/note(categorySort='descending')}">Descending</a></li>-->
-<!--                </ul>-->
-<!--            </div>-->
+                <div class="dropdown">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                    Sort
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" th:href="@{/note(categorySort='ascending')}">From most to least popular</a></li>
+                    <li><a class="dropdown-item" th:href="@{/note(categorySort='descending')}">From least to most popular</a></li>
+                </ul>
+            </div>
             </th>
             <th></th>
         </tr>
