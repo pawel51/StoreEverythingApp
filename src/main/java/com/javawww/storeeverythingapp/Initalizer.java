@@ -28,9 +28,14 @@ public class Initalizer implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        UserModel userModel1 = addUser("Anna", "Jantar", "Jantex", passwordEncoder.encode("Admin.123"), 78, Role.LIMITEDUSER);
-        UserModel userModel2 = addUser("Jan", "Kowalski", "Kowal", passwordEncoder.encode("Admin.123"), 16, Role.FULLUSER);
-        UserModel userModel3 = addUser("admin", "admin", "admin", passwordEncoder.encode("Admin.123"), 16, Role.ADMIN);
+        UserModel userModel1 = addUser("Anna", "Jantar", "Jantex",
+                passwordEncoder.encode("Admin+123"), 78, Role.LIMITEDUSER, "jantext@gmail.com");
+
+        UserModel userModel2 = addUser("Jan", "Kowalski", "Kowal",
+                passwordEncoder.encode("Admin+123"), 16, Role.FULLUSER, "kowal@gmail.com");
+
+        UserModel userModel3 = addUser("admin", "admin", "admin",
+                passwordEncoder.encode("Admin+123"), 16, Role.ADMIN, "admin@gmail.com");
 
         Category cat1 = addCategory("Do zrobienia");
         Category cat2 = addCategory("Wizyty");
@@ -44,8 +49,8 @@ public class Initalizer implements CommandLineRunner {
 
     }
 
-    public UserModel addUser(String name, String surname, String username, String password, int age, Role role){
-        UserModel userModel = new UserModel(name, surname, username, password, age,  role);
+    public UserModel addUser(String name, String surname, String username, String password, int age, Role role, String email){
+        UserModel userModel = new UserModel(null, name, surname, username, password, age,  role, email);
         userRepository.save(userModel);
         return userModel;
     }

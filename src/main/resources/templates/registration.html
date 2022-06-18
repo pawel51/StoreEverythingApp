@@ -5,6 +5,7 @@
   <title>Rejestracja</title>
   <link href="../static/css/boostrap/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
   <link rel="stylesheet" th:href="@{/css/pages/registration.css}"/>
+  <link rel="stylesheet" th:href="@{/css/site.css}"/>
 
 </head>
 <body>
@@ -29,15 +30,27 @@
       <label for="surname">Nazwisko</label>
       <input th:field="*{surname}" type="text" id="surname" name="surname" placeholder="Podaj nazwisko...">
 
+      <label for="email">Email</label>
+      <input th:field="*{email}" type="text" id="email" name="email" placeholder="Podaj email...">
+      <span th:if="${emailError}" class="error">Email has been taken</span>
+      <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+
       <label for="age">Wiek</label>
       <input th:field="*{age}" type="text" id="age" name="age" placeholder="Podaj wiek...">
-      <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="error">Title error</span>
+      <span th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="error"></span>
 
       <label for="username">Nazwa Użytkownika:</label>
       <input th:field="*{username}" type="text" id="username" name="username" placeholder="Podaj nazwę...">
+      <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error"></span>
+      <span th:if="${usernameError}" class="error">Username has been taken</span>
 
       <label for="password">Hasło:</label>
       <input th:field="*{password}" type="password" id="password" name="password" placeholder="Podaj hasło...">
+      <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
+
+      <label for="password">Potwierdź Hasło:</label>
+      <input th:field="*{confirmPassword}" type="password" id="confirmPassword" name="confirmPassword" placeholder="Potwierdź hasło...">
+      <span th:if="${passwordConfirmError}" class="error">Passwords do not match</span>
 
       <p class="register-alert"></p>
       <button type="submit" class="btn-register">Zarejestruj się</button>

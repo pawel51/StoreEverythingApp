@@ -51,16 +51,27 @@ public class FormController {
             return "/registration";
         }
 
-        int errorCode = 0;
+        boolean error = false;
         // user already exists check
         UserModel exUser2 = userService.getUserByUsername(user.getUsername());
         if (exUser2 != null){
-            errorCode += 2;
+            error = true;
+            redirectAttributes.addFlashAttribute("usernameError", "Username is taken");
         }
         UserModel exUser4 = userService.getUserByEmail(user.getEmail());
         if (exUser4 != null){
-            errorCode += 4;
+            error = true;
+            redirectAttributes.addFlashAttribute("emailError", "Email is taken");
         }
+        if (user.getPassword().compareTo(user.getConfirmPassword()) != 0){
+            error = true;
+            redirectAttributes.addFlashAttribute("passwordConfirmError", "Passwords do not match");
+        }
+        if (error){
+            redirectAttributes.addFlashAttribute("user", user);
+            return "redirect:/registration?error";
+        }
+
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(Role.FULLUSER);

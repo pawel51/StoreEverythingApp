@@ -24,7 +24,8 @@ public class UserModel {
 
     private String surname;
 
-    @NotNull
+    @NotNull(message = "{err.string.usernameReq}")
+    @NotEmpty(message = "{err.string.usernameReq}")
     private String username;
 
     /*
@@ -39,23 +40,26 @@ public class UserModel {
      */
 
     @NotNull
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$%^+.=<|>]).{8,20}$" , message = "{err.string.password}")
+//    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$%^+.=<|>]).{8,20}$" , message = "{err.string.password}")
     private String password;
 
-    @Min(1) @Max(99)
+    @Min(value = 1, message = "{err.string.age}") @Max(value = 99, message = "{err.string.age}")
     private int age;
 
-    @NotNull
     private Role role;
 
+    @NotNull(message = "{err.string.emailReq}")
+    @Email(message = "{err.string.email}",
+            regexp = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])")
     private String email;
 
-    public UserModel (String name, String surname, String username, String password, int age, Role role) {
-        this.name = name;
-        this.surname = surname;
-        this.username = username;
-        this.password = password;
-        this.age = age;
-        this.role = role;
-    }
+//    public UserModel (String name, String surname, String username, String password, int age, Role role, String email) {
+//        this.name = name;
+//        this.surname = surname;
+//        this.username = username;
+//        this.password = password;
+//        this.age = age;
+//        this.role = role;
+//        this.email = email;
+//    }
 }
