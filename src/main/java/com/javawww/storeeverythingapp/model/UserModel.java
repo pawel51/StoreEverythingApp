@@ -48,7 +48,6 @@ public class UserModel {
     @NotNull
     private Role role;
 
-    @NotNull
     private String email;
 
     public UserModel (String name, String surname, String username, String password, int age, Role role) {
