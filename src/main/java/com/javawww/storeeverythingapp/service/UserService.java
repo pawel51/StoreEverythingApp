@@ -74,4 +74,7 @@ public class UserService extends GenericManagementService<UserModel, UserReposit
         return AuthorityUtils.createAuthorityList(userRoles);
     }
 
+    public UserModel getUserByEmail (String email) {
+        return repository.findByEmail(email);
+    }
 }

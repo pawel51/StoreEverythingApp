@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-@RestController
-@RequestMapping(path = "registration")
-public class RegistrationController {
-
-    @Autowired
-    private RegistrationService registrationService;
-
-    @PostMapping
-    public UserModel register(@Valid @RequestBody RegistrationRequest request) {
-        return registrationService.register(request);
-    }
-}
+//@RestController
+//@RequestMapping(path = "registration")
+//public class RegistrationController {
+//
+//    @Autowired
+//    private RegistrationService registrationService;
+//
+//    @PostMapping
+//    public UserModel register(@Valid @RequestBody RegistrationRequest request) {
+//        return registrationService.register(request);
+//    }
+//}

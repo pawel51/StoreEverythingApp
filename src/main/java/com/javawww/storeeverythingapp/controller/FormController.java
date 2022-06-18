@@ -1,6 +1,7 @@
 package com.javawww.storeeverythingapp.controller;
 
 import com.javawww.storeeverythingapp.dto.UserDto;
+import com.javawww.storeeverythingapp.enums.Role;
 import com.javawww.storeeverythingapp.model.UserModel;
 import com.javawww.storeeverythingapp.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -27,7 +28,7 @@ public class FormController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String getLoginForm(){
+    public String getLoginForm(Model model){
         return "login";
     }
 
@@ -41,8 +42,8 @@ public class FormController {
     }
 
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String postRegisterForm(Model model, @ModelAttribute("user") @Valid UserDto user,
+    @PostMapping(value = "/registration")
+    public String postRegisterForm(@ModelAttribute("user") @Valid UserDto user,
                                    BindingResult bindingResult,
                                    RedirectAttributes redirectAttributes) {
 
@@ -50,15 +51,21 @@ public class FormController {
             return "/registration";
         }
 
+        int errorCode = 0;
         // user already exists check
-        UserModel exUser = userService.getUserByUsername(user.getUsername());
-        if (exUser != null){
-            model.addAttribute("userExistsMessage", "Username already exists");
-            return "/registration";
+        UserModel exUser2 = userService.getUserByUsername(user.getUsername());
+        if (exUser2 != null){
+            errorCode += 2;
+        }
+        UserModel exUser4 = userService.getUserByEmail(user.getEmail());
+        if (exUser4 != null){
+            errorCode += 4;
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        UserModel addedUser = userService.add(mapper.map(user, UserModel.class));
+        user.setRole(Role.FULLUSER);
+        UserModel userToAdd = mapper.map(user, UserModel.class);
+        UserModel addedUser = userService.add(userToAdd);
         if (addedUser != null){
             return "redirect:/login";
         }

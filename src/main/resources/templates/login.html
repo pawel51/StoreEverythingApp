@@ -28,6 +28,7 @@
                 <input type="text" id="username" name="username" placeholder="Podaj nazwę...">
                 <label for="password">Hasło:</label>
                 <input type="password" id="password" name="password" placeholder="Podaj hasło...">
+                <span class=".text-danger" th:if="${param.error}">Nie poprawne dane logowania</span>
                 <button class="btn-login">Zaloguj się</button>
                 <div  class="login-register">
                     <p>Nie masz jeszcze konta? <span> <a th:href="@{/registration}">Zarejestruj się</a></span> </p>
