@@ -13,8 +13,13 @@
 <body>
 <div th:replace="fragments/common :: navigationBar"></div>
 <div layout:fragment="content">
-    <h3>Category List</h3>
-    <a th:href="@{/category/add}" class="btn btn-success">Add category</a><hr/>
+    <div class="heading">
+        <h1>Category List
+            <a class="navbar-brand" sec:authorize="hasAnyAuthority('ADMIN')">
+                <a th:href="@{/category/add}" class="btn btn-success">Add category</a><hr/>
+            </a>
+        </h1>
+    </div>
     <table class="table table-striped">
         <tr>
             <th>ID</th>
