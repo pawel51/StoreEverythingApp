@@ -1,10 +1,8 @@
 package com.javawww.storeeverythingapp.controller;
 
 import com.javawww.storeeverythingapp.dto.NoteDto;
-import com.javawww.storeeverythingapp.model.Category;
 import com.javawww.storeeverythingapp.model.Note;
 import com.javawww.storeeverythingapp.model.UserModel;
-import com.javawww.storeeverythingapp.repository.UserRepository;
 import com.javawww.storeeverythingapp.service.CategoryService;
 import com.javawww.storeeverythingapp.service.NoteService;
 import com.javawww.storeeverythingapp.service.UserService;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -33,6 +30,7 @@ public class NoteController {
     private final NoteService noteService;
     private final CategoryService categoryService;
     private final UserService userService;
+    private final UriComponentsBuilder ucb = UriComponentsBuilder.newInstance().scheme("http").host("localhost").path("/");
 
     private final ModelMapper modelMapper;
 
