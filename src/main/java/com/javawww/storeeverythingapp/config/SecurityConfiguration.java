@@ -50,15 +50,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/registration**").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .rememberMe().userDetailsService(userService).key("user-name")
+                .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
-                .logout()
-                .logoutSuccessUrl("/login")
-                .permitAll();
-
+                .logout().invalidateHttpSession(true)
+                .deleteCookies("user-name", "JSESSIONID")
+                .logoutSuccessUrl("/index")
+                .and()
+                .sessionManagement()
+                .invalidSessionUrl("/index");
     }
 
 
