@@ -10,7 +10,7 @@
                 <a class="navbar-brand" th:href="@{/users}">Users</a>
             </a>
             <a sec:authorize="!isAuthenticated()" class="navbar-brand" th:href="@{/login}">Log in</a>
-            <a sec:authorize="isAuthenticated()" class="navbar-brand" th:href="@{/login?logout=1}">Log out</a>
+            <a sec:authorize="isAuthenticated()" class="navbar-brand" th:href="@{/logout}">Log out</a>
         </div>
     </nav>
 
