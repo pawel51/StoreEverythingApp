@@ -43,7 +43,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/users").hasAuthority("ADMIN")
                 .mvcMatchers("/category").hasAuthority("ADMIN")
                 .mvcMatchers("/note/add").hasAnyAuthority("ADMIN", "FULLUSER")
-                .mvcMatchers("/note").hasAnyAuthority("ADMIN", "FULLUSER", "LIMITEDUSER")
                 .antMatchers("/resources/**",
                         "/css/**", "/images/**", "/js/**",
                         "/webjars/**",
@@ -51,20 +50,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/registration**").permitAll()
                 .anyRequest().authenticated()
                 .and()
+                .rememberMe().userDetailsService(userService).key("user-name")
+                .and()
                 .formLogin()
+                .defaultSuccessUrl("/")
                 .loginPage("/login")
                 .permitAll()
                 .and()
-                .logout().permitAll()
-                .logoutSuccessUrl("/login")
-                .permitAll();
-        http
-                .headers().frameOptions().sameOrigin();
-        http
-                .csrf().disable();
-        http
-                .headers().frameOptions().disable();
-
+                .logout().invalidateHttpSession(true)
+                .deleteCookies("user-name", "JSESSIONID")
+                .logoutSuccessUrl("/index")
+                .and()
+                .sessionManagement()
+                .invalidSessionUrl("/index");
     }
 
 

@@ -27,6 +27,11 @@ public class FormController {
         this.mapper = mapper;
     }
 
+    @GetMapping("/")
+    public String getHome(){
+        return "index";
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLoginForm(Model model){
         return "login";
