@@ -53,6 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .rememberMe().userDetailsService(userService).key("user-name")
                 .and()
                 .formLogin()
+                .defaultSuccessUrl("/")
                 .loginPage("/login")
                 .permitAll()
                 .and()
