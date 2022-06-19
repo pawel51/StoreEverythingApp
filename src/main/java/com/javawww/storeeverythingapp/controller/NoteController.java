@@ -18,8 +18,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -175,5 +177,14 @@ public class NoteController {
     public String deleteNote(@PathVariable("id") Long id) {
         noteService.delete(id);
         return "redirect:/note";
+    }
+
+    @RequestMapping("/share/{id}")
+    public String shareNote(@PathVariable Long id, UriComponentsBuilder ucb) {
+        noteService.findNoteById(id);
+
+        URI uri = ucb.path(String.format("/shared/{id}", id)).build().toUri();
+
+        return uri.toString();
     }
 }
