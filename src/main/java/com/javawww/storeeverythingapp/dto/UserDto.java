@@ -31,7 +31,7 @@ public class UserDto {
 
     private String confirmPassword;
 
-    @Min(value = 1, message = "{err.string.age}") @Max(value = 99, message = "{err.string.age}")
+    @Min(value = 18, message = "{err.string.age}") @Max(value = 99, message = "{err.string.age}")
     private int age;
 
     private Role role;
