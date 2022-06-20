@@ -43,6 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .mvcMatchers("/users").hasAuthority("ADMIN")
                 .mvcMatchers("/category").hasAuthority("ADMIN")
                 .mvcMatchers("/note/add").hasAnyAuthority("ADMIN", "FULLUSER")
+                .mvcMatchers("/note/get-shared").hasAnyAuthority("ADMIN", "FULLUSER", "LIMITEDUSER")
                 .antMatchers("/resources/**",
                         "/css/**", "/images/**", "/js/**",
                         "/webjars/**",

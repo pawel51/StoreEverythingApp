@@ -1,10 +1,8 @@
 package com.javawww.storeeverythingapp.controller;
 
 import com.javawww.storeeverythingapp.dto.NoteDto;
-import com.javawww.storeeverythingapp.model.Category;
 import com.javawww.storeeverythingapp.model.Note;
 import com.javawww.storeeverythingapp.model.UserModel;
-import com.javawww.storeeverythingapp.repository.UserRepository;
 import com.javawww.storeeverythingapp.service.CategoryService;
 import com.javawww.storeeverythingapp.service.NoteService;
 import com.javawww.storeeverythingapp.service.UserService;
@@ -16,10 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -43,38 +42,46 @@ public class NoteController {
     public String getAll(Model model,
                          @RequestParam(name = "titleSort", required = false) String titleSort,
                          @RequestParam(name = "dateSort", required = false) String dateSort,
-                         @RequestParam(name = "categorySort", required = false) String categorySort){
+                         @RequestParam(name = "categorySort", required = false) String categorySort) {
         List<Note> noteList = noteService.findAll();
-        if(titleSort != null){
-            switch (titleSort.toLowerCase()){
-                case "ascending": noteList = noteList.stream().sorted(Comparator.comparing(Note::getTitle)).collect(Collectors.toList());
+        if (titleSort != null) {
+            switch (titleSort.toLowerCase()) {
+                case "ascending":
+                    noteList = noteList.stream().sorted(Comparator.comparing(Note::getTitle)).collect(Collectors.toList());
                     break;
-                case "descending": noteList = noteList.stream().sorted(Comparator.comparing(Note::getTitle).reversed()).collect(Collectors.toList());
+                case "descending":
+                    noteList = noteList.stream().sorted(Comparator.comparing(Note::getTitle).reversed()).collect(Collectors.toList());
                     break;
             }
         }
 
-        if(dateSort != null){{
-            switch (dateSort.toLowerCase()){
-                case "ascending": noteList = noteList.stream().sorted(Comparator.comparing(Note::getCreatedAt)).collect(Collectors.toList());
-                    break;
-                case "descending": noteList = noteList.stream().sorted(Comparator.comparing(Note::getCreatedAt).reversed()).collect(Collectors.toList());
-                    break;
+        if (dateSort != null) {
+            {
+                switch (dateSort.toLowerCase()) {
+                    case "ascending":
+                        noteList = noteList.stream().sorted(Comparator.comparing(Note::getCreatedAt)).collect(Collectors.toList());
+                        break;
+                    case "descending":
+                        noteList = noteList.stream().sorted(Comparator.comparing(Note::getCreatedAt).reversed()).collect(Collectors.toList());
+                        break;
+                }
             }
-        }}
+        }
 
-        if(categorySort != null){{
-            Map<String, Long> amountMap = noteService.getNotesAmountByCategories();
-            switch (categorySort.toLowerCase()){
-                case "ascending":
-                    noteList = noteList.stream().filter(note -> note.getCategory()!=null).sorted(Comparator.comparing(note -> amountMap.get(note.getCategory().getName()))).collect(Collectors.toList());
-                    Collections.reverse(noteList);
-                    break;
-                case "descending":
-                    noteList = noteList.stream().filter(note -> note.getCategory()!=null).sorted(Comparator.comparing(note -> amountMap.get(note.getCategory().getName()))).collect(Collectors.toList());
-                    break;
+        if (categorySort != null) {
+            {
+                Map<String, Long> amountMap = noteService.getNotesAmountByCategories();
+                switch (categorySort.toLowerCase()) {
+                    case "ascending":
+                        noteList = noteList.stream().filter(note -> note.getCategory() != null).sorted(Comparator.comparing(note -> amountMap.get(note.getCategory().getName()))).collect(Collectors.toList());
+                        Collections.reverse(noteList);
+                        break;
+                    case "descending":
+                        noteList = noteList.stream().filter(note -> note.getCategory() != null).sorted(Comparator.comparing(note -> amountMap.get(note.getCategory().getName()))).collect(Collectors.toList());
+                        break;
+                }
             }
-        }}
+        }
 
         model.addAttribute("noteList", noteList);
 
@@ -113,9 +120,9 @@ public class NoteController {
 
     @PostMapping("/add")
     public String addNote(Model model,
-                           @Valid Note note,
-                           BindingResult bindingResult,
-                           RedirectAttributes redirectAttributes) {
+                          @Valid Note note,
+                          BindingResult bindingResult,
+                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             if (!model.containsAttribute("categories")) {
                 model.addAttribute("categories", categoryService.findAll());
@@ -175,5 +182,22 @@ public class NoteController {
     public String deleteNote(@PathVariable("id") Long id) {
         noteService.delete(id);
         return "redirect:/note";
+    }
+
+    @GetMapping("/share/{id}")
+    public String shareNote(Model model,
+                            @PathVariable Long id) {
+        Note note = noteService.findNoteById(id);
+        model.addAttribute("link", "localhost:8080/note/get-shared/" + note.getLink());
+        model.addAttribute("note", note);
+        return "note/shared";
+    }
+
+    @GetMapping("/get-shared/{link}")
+    public String shareNote(Model model,
+                            @PathVariable String link) {
+        Note note = noteService.findNoteByLink(link);
+        model.addAttribute("note", note);
+        return "note/getShared";
     }
 }

@@ -53,5 +53,11 @@ public class NoteService extends GenericManagementService<Note, NoteRepository>{
         return note;
     }
 
+    public Note findNoteById(Long id) {
+        return repository.getById(id);
+    }
 
+    public Note findNoteByLink(String link){
+        return repository.getNoteByLink(link);
+    }
 }

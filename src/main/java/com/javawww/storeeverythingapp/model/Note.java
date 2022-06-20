@@ -16,8 +16,6 @@ import java.time.OffsetDateTime;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Note {
 
     @Id
@@ -47,6 +45,8 @@ public class Note {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime reminder;
 
+    private String link;
+
     public Note(UserModel owner, String title, String content, Category category, LocalDateTime reminder) {
         this.owner = owner;
         this.title = title;
@@ -54,6 +54,8 @@ public class Note {
         this.category = category;
         this.createdAt = OffsetDateTime.now();
         this.reminder = reminder;
+        this.link = generateNoteLink();
+
     }
 
     public Note(UserModel owner, String title, String content, Category category, OffsetDateTime createdAt, LocalDateTime reminder) {
@@ -63,5 +65,29 @@ public class Note {
         this.category = category;
         this.createdAt = createdAt;
         this.reminder = reminder;
+        this.link = generateNoteLink();
+    }
+
+    public Note() {
+        this.link = generateNoteLink();
+    }
+
+    public Note(Long id, UserModel owner, String title, String content, Category category, OffsetDateTime createdAt, LocalDateTime reminder) {
+        this.id = id;
+        this.owner = owner;
+        this.title = title;
+        this.content = content;
+        this.category = category;
+        this.createdAt = createdAt;
+        this.reminder = reminder;
+        this.link = generateNoteLink();
+    }
+
+    private String generateNoteLink(){
+        StringBuilder link = new StringBuilder();
+        for (int i = 0; i < 20; i++) {
+            link.append((char) ((int)(Math.random()*1000)%26+97));
+        }
+        return link.toString();
     }
 }
