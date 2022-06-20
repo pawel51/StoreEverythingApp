@@ -124,8 +124,8 @@ public class NoteController {
         }
         //TODO:
         note.setCreatedAt(OffsetDateTime.now());
-        //TODO:
-        UserModel u = userService.getUserByUsername("Jantex");
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserModel u = userService.getUserByUsername(userDetails.getUsername());
         note.setOwner(u);
         noteService.add(note);
 
