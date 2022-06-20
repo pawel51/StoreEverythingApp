@@ -37,7 +37,7 @@
                  th:if="${#authentication.getPrincipal().getUsername()} == ${note.getOwner().getUsername()}">
                 <h3>Shared note is available at</h3>
                 <input id="linkInput" th:value="${link}" size="50" readonly>
-                <button onclick="myFunction()">Copy</button>
+                <button class="btn btn-primary m-1" onclick="myFunction()">Copy</button>
             </div>
         </div>
         <hr/>
