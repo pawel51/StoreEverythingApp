@@ -31,7 +31,7 @@
           <h1>Welcome <span sec:authentication="name"></span>!</h1>
           <div sec:authorize="hasAnyAuthority('ADMIN', 'FULLUSER')">
             <h2>Let's add your first note!</h2>
-            <p><a class="btn btn-lg btn-primary" th:href="@{/note/add}">Add Node</a></p>
+            <p><a class="btn btn-lg btn-primary" th:href="@{/note/add}">Add Note</a></p>
           </div>
         </div>
       </div>
