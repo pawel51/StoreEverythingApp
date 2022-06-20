@@ -66,6 +66,7 @@
             <td th:text="${note.getCategory()?.getName()}"></td>
             <td>
                 <a class="nav-item" th:if="${#authentication.getPrincipal().getUsername()} == ${note.getOwner().getUsername()}">
+                    <a th:href="@{/note/share/{id}(id=${note.getId()})}" class="btn btn-warning m-1">Share</a>
                     <a th:href="@{/note/{id}(id=${note.getId()})}" class="btn btn-primary m-1">Details</a>
                     <a th:href="@{/note/edit/{id}(id=${note.getId()})}" class="btn btn-secondary m-1">Edit</a>
                 </a>
@@ -73,5 +74,7 @@
         </tr>
     </table>
 </div>
+
 </body>
+
 </html>
