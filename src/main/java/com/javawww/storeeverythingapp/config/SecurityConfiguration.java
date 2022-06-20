@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .mvcMatchers("/users").hasAuthority("ADMIN")
+                .mvcMatchers("/welcome").permitAll()
                 .mvcMatchers("/category").hasAuthority("ADMIN")
                 .mvcMatchers("/note/add").hasAnyAuthority("ADMIN", "FULLUSER")
                 .mvcMatchers("/note/get-shared").hasAnyAuthority("ADMIN", "FULLUSER", "LIMITEDUSER")
@@ -53,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe().userDetailsService(userService).key("user-name")
                 .and()
-                .formLogin().defaultSuccessUrl("/", true)
+                .formLogin().defaultSuccessUrl("/welcome", true)
                 .loginPage("/login")
                 .permitAll()
                 .and()

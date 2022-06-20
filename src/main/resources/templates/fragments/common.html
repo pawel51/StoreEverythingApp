@@ -3,13 +3,13 @@
 
     <nav th:fragment="navigationBar" class="navbar navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" th:href="@{/}">Home</a>
+            <a class="navbar-brand" th:href="@{/welcome}">Home</a>
             <a class="navbar-brand" th:href="@{/note}">Note</a>
             <a class="navbar-brand" sec:authorize="hasAuthority('ADMIN')" th:href="@{/category}">Category</a>
             <a class="navbar-brand" sec:authorize="hasAuthority('ADMIN')" th:href="@{/users}">Users</a>
 
             <a sec:authorize="!isAuthenticated()" class="navbar-brand" th:href="@{/login}">Log in</a>
-            <a sec:authorize="isAuthenticated()" class="navbar-brand" th:href="@{/logout}">Log out</a>
+            <a sec:authorize="isAuthenticated()" class="navbar-brand" th:href="@{/login}">Log out</a>
         </div>
     </nav>
 
